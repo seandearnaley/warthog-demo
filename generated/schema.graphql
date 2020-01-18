@@ -1,0 +1,228 @@
+interface BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+}
+
+type BaseModel implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+}
+
+type BaseModelUUID implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+}
+
+input BaseWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+}
+
+type Card implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+  number: Int
+  label: String
+  categorys: [Category!]
+}
+
+input CardCreateInput {
+  number: Float
+  label: String
+}
+
+enum CardOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  deletedAt_ASC
+  deletedAt_DESC
+  number_ASC
+  number_DESC
+  label_ASC
+  label_DESC
+}
+
+input CardUpdateInput {
+  number: Float
+  label: String
+}
+
+input CardWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+  number_eq: Int
+  number_gt: Int
+  number_gte: Int
+  number_lt: Int
+  number_lte: Int
+  number_in: [Int!]
+  label_eq: String
+  label_contains: String
+  label_startsWith: String
+  label_endsWith: String
+  label_in: [String!]
+}
+
+input CardWhereUniqueInput {
+  id: String!
+}
+
+type Category implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+  name: String
+  cards: [Card!]
+}
+
+input CategoryCreateInput {
+  name: String
+}
+
+enum CategoryOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  deletedAt_ASC
+  deletedAt_DESC
+  name_ASC
+  name_DESC
+}
+
+input CategoryUpdateInput {
+  name: String
+}
+
+input CategoryWhereInput {
+  id_eq: String
+  id_in: [String!]
+  createdAt_eq: String
+  createdAt_lt: String
+  createdAt_lte: String
+  createdAt_gt: String
+  createdAt_gte: String
+  createdById_eq: String
+  updatedAt_eq: String
+  updatedAt_lt: String
+  updatedAt_lte: String
+  updatedAt_gt: String
+  updatedAt_gte: String
+  updatedById_eq: String
+  deletedAt_all: Boolean
+  deletedAt_eq: String
+  deletedAt_lt: String
+  deletedAt_lte: String
+  deletedAt_gt: String
+  deletedAt_gte: String
+  deletedById_eq: String
+  name_eq: String
+  name_contains: String
+  name_startsWith: String
+  name_endsWith: String
+  name_in: [String!]
+}
+
+input CategoryWhereUniqueInput {
+  id: String!
+}
+
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
+interface DeleteResponse {
+  id: ID!
+}
+
+type Mutation {
+  createCard(data: CardCreateInput!): Card!
+  createManyCards(data: [CardCreateInput!]!): [Card!]!
+  updateCard(data: CardUpdateInput!, where: CardWhereUniqueInput!): Card!
+  deleteCard(where: CardWhereUniqueInput!): StandardDeleteResponse!
+  createCategory(data: CategoryCreateInput!): Category!
+  createManyCategorys(data: [CategoryCreateInput!]!): [Category!]!
+  updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category!
+  deleteCategory(where: CategoryWhereUniqueInput!): StandardDeleteResponse!
+}
+
+type Query {
+  cards(offset: Int, limit: Int = 50, where: CardWhereInput, orderBy: CardOrderByInput): [Card!]!
+  card(where: CardWhereUniqueInput!): Card!
+  categorys(offset: Int, limit: Int = 50, where: CategoryWhereInput, orderBy: CategoryOrderByInput): [Category!]!
+  category(where: CategoryWhereUniqueInput!): Category!
+}
+
+type StandardDeleteResponse {
+  id: ID!
+}
